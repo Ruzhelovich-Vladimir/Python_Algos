@@ -33,3 +33,57 @@
 
 ЗДЕСЬ ДОЛЖНА БЫТЬ РЕАЛИЗАЦИЯ ЧЕРЕЗ РЕКУРСИЮ
 """
+
+OPERATION = "+-*/0"
+
+
+def user_input(msg="", valid_characters="float"):
+    """
+    :param msg: Ссообщение для пользователя
+    :param valid_characters: типы ввода 'float' или 'operator'
+    :return:
+    """
+    error = "Ошибка. Не допустимый ввод."
+
+    usr_input = input(msg)
+    # task_1_2.py:51:4: R1705: Unnecessary "elif" after "return" (no-else-return)
+    # не понял почему pylint не нравиться, elif требуется применять.
+    if valid_characters == "float":
+        try:
+            usr_float = float(usr_input)
+        except ValueError:
+            print(error)
+            return user_input(msg, valid_characters)
+        return usr_float
+    elif valid_characters == "operator":
+        if usr_input not in OPERATION:
+            print(error)
+            return user_input(msg, valid_characters)
+        return usr_input.strip()
+    raise ValueError('Не допустимый тип.')
+
+
+def calc():
+    """
+    Калькулятор
+    """
+    operator = user_input(
+        "Введите операцию (+, -, *, / или 0 для выхода): ",
+        "operator")
+    if operator == "0":
+        return
+    number1 = user_input("Введите первое число: ")
+    number2 = user_input("Введите второе число: ")
+    if operator == "/" and number2 == 0:
+        print("Ошибка. Деление на ноль")
+        calc()
+    else:
+        str_calc = f"{number1} {operator} {number2}"
+        # Использую val, т.к. в данном случае он безопасен.
+        print(f"Результат {str_calc} = {eval(str_calc)}")
+        calc()
+
+
+if __name__ == "__main__":
+
+    calc()

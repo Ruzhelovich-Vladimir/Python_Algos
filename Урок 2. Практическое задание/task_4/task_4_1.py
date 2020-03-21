@@ -8,3 +8,30 @@
 
 ЗДЕСЬ ДОЛЖНА БЫТЬ РЕАЛИЗАЦИЯ ЧЕРЕЗ ЦИКЛ
 """
+
+
+def main():
+    """
+    Основная функция
+    """
+
+    elem_num = int(input("Введите количество элементов ряда: "))
+
+    if elem_num < 1:
+        print("Ошибка. Колличество должно быть больше нуля")
+        return
+
+    elem = 1
+    sum_elem = elem
+    inx = 2
+    while inx <= elem_num:
+        elem = elem * -0.5
+        sum_elem += elem
+        inx += 1
+
+    print(f"Количество элементов - {elem_num}, их сумма - {sum_elem}")
+
+
+if __name__ == "__main__":
+
+    main()

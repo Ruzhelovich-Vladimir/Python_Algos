@@ -13,4 +13,54 @@
 Перевернутое число: 321
 
 ЗДЕСЬ ДОЛЖНА БЫТЬ РЕАЛИЗАЦИЯ ЧЕРЕЗ РЕКУРСИЮ
+
+НЕ ИССПОЛЬЗОВАЛ МАССИВ, Т.Е. К СТРОКЕ ТОЖЕ МОЖНО ОБРАТИТЬСЯ КАК МАССИВУ,
+Я ЭТО ТОЖЕ НЕ СТАЛ ДЕЛАТЬ.
 """
+
+
+def usr_number(msg):
+    """
+    :param msg: Сообщение пользователю
+    :return: Натуральное число
+    """
+    try:
+        number = int(input(msg))
+    except ValueError:
+        print("Ошибка. Вы ввели не натуральное число")
+        return usr_number(msg)
+    if number < 0:
+        print("Ошибка. Вы ввели не натуральное число")
+        return usr_number(msg)
+    return number
+
+
+def inverted_num(number):
+    """
+    :param number: Натуральное число
+    :return: Перевернутое число
+    """
+    len_num = len(str(number))  # длинна числа в разрядах
+
+    if len_num > 2:  # ПЕРЕВОРАЧИВАЕМ ЧИСЛО БОЛЬШЕ 99
+        return int((number % 10) * (10 ** (len_num - 1)) +
+                   inverted_num((number // 10) % (10 ** (len_num - 2))) * 10 +
+                   (number // (10 ** (len_num - 1)) % 10))
+    if len_num == 2:  # ПЕРЕВОРАЧИВАЕМ ЧИСЛО ОТ 10 ДО 99. КОНЕЦ РЕКУРСИИ
+        return int((number % 10) * (10 ** (len_num - 1)) +
+                   (number // (10 ** (len_num - 1)) % 10))
+    return number  # ПЕРЕВОРАЧИВАЕМ ЧИСЛО ОТ 0 ДО БОЛЬШЕ 9. КОНЕЦ РЕКУРСИИ
+
+
+def main():
+    """Основная часть скрипта"""
+
+    number = usr_number("Введите натуральное число: ")
+
+    result = inverted_num(number)
+    print(f"Перевернутое число: {result}")
+
+
+if __name__ == "__main__":
+
+    main()

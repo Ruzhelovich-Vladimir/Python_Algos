@@ -17,3 +17,24 @@
 
 ЗДЕСЬ ДОЛЖНА БЫТЬ РЕАЛИЗАЦИЯ ЧЕРЕЗ ЦИКЛ
 """
+
+
+def show_table_code(start, finish):
+    """
+    :param start: начальный код
+    :param finish: конечный код
+    :return: выводит таблицу символов
+    """
+
+    i = start
+    while i <= finish:
+        string = ""
+        for j in "1234567890":
+            string += f"{i} - {chr(i)}\t"
+            i += 1
+            if i > finish:
+                break
+        print(string)
+
+if __name__ == "__main__":
+    show_table_code(32, 127)

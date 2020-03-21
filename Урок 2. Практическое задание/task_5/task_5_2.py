@@ -17,3 +17,24 @@
 
 ЗДЕСЬ ДОЛЖНА БЫТЬ РЕАЛИЗАЦИЯ ЧЕРЕЗ РЕКУРСИЮ
 """
+
+
+def get_table_code(start, finish, table="", index=1):
+    """
+    :param start: начальный код
+    :param finish: конечный код
+    :return: выводит таблицу символов
+    """
+
+    table += f"{start} - {chr(start)}" + "\t" + \
+        ("\r\n" if index % 10 == 0 else "")
+
+    if start == finish:
+        return table
+    index += 1
+    start += 1
+    return get_table_code(start, finish, table, index)
+
+
+if __name__ == "__main__":
+    print(get_table_code(32, 127))
