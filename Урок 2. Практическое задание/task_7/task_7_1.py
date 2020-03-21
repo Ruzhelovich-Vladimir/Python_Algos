@@ -5,3 +5,27 @@
 
 ЗДЕСЬ ДОЛЖНА БЫТЬ РЕАЛИЗАЦИЯ ЧЕРЕЗ ЦИКЛ
 """
+
+
+def get_left_sum(n_value):
+    """
+    Функция расчёта левой части уравления
+    :param n_value:
+    :return:
+    """
+    summa = 0
+    elem = 1
+    while elem <= n_value:
+        summa += elem
+        elem += 1
+
+    return summa
+
+
+if __name__ == "__main__":
+
+    print("Проверка уровнения: 1+2+...+n = n(n+1)/2")
+    N = int(input("Введите число n:"))
+
+    print("Уравнение верное" if get_left_sum(N) == (
+        N * (N + 1) / 2) else "Уравнение не верное")

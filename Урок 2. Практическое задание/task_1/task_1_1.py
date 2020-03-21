@@ -32,3 +32,53 @@
 
 ЗДЕСЬ ДОЛЖНА БЫТЬ РЕАЛИЗАЦИЯ ЧЕРЕЗ ЦИКЛ
 """
+
+OPERATION = "+-*/0"
+
+
+def user_input(msg="", valid_characters=""):
+    """
+    :param msg: Ссообщение для пользователя
+    :param valid_characters: типы ввода 'float' или 'operator'
+    :return:
+    """
+    error = "Ошибка. Не допустимый ввод."
+
+    while True:
+        usr_input = input(msg)
+        if valid_characters == "float":
+            try:
+                float_user = float(usr_input)
+            except ValueError:
+                print(error)
+            else:
+                return float_user
+        elif valid_characters == "operator":
+            if usr_input in OPERATION:
+                return usr_input.strip()
+            print(error)
+
+
+def calc():
+    """
+    Калькулятор
+    """
+    while True:
+        operator = user_input(
+            "Введите операцию (+, -, *, / или 0 для выхода): ",
+            "operator")
+        if operator == "0":
+            break
+        number1 = user_input("Введите первое число: ", "float")
+        number2 = user_input("Введите второе число: ", "float")
+        if operator == "/" and number2 == 0:
+            print("Ошибка. Деление на ноль")
+            continue
+        str_calc = f"{number1} {operator} {number2}"
+        # Использую val, т.к. в данном случае он безопасен.
+        print(f"Результат {str_calc} = {eval(str_calc)}")
+
+
+if __name__ == "__main__":
+
+    calc()

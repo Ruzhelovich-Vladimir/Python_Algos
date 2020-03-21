@@ -12,3 +12,18 @@
 
 ЗДЕСЬ ДОЛЖНА БЫТЬ РЕАЛИЗАЦИЯ ЧЕРЕЗ ЦИКЛ
 """
+
+if __name__ == "__main__":
+
+    COUNT = int(input("Сколько будет чисел? - "))
+    NUMBER = int(input("Какую цифру считать? - "))
+
+    I = 1
+    COUNT_NUMBER = 0
+    while I <= COUNT:
+        VALUE = int(input(f"Число {I}: "))
+        while VALUE > 0:
+            COUNT_NUMBER += (1 if VALUE % 10 == NUMBER else 0)
+            VALUE = VALUE // 10
+        I += 1
+    print(f"Было введено {COUNT_NUMBER} цифр '{NUMBER}'")
