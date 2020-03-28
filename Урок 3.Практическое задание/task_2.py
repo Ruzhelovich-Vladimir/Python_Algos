@@ -10,3 +10,19 @@
 Пример:
 Исходный массив: [8, 3, 15, 6, 4, 2], результат: [0, 3, 4, 5]
 """
+
+# ВАРИАНТ №1
+#ARRAY = input("Введите массов через запятую: ").split(",")
+ARRAY = "8,3,15,6,4,2".split(",")
+RESULT = []
+for I, _ in enumerate(ARRAY):
+    if int(ARRAY[I]) % 2 == 0:
+        RESULT.append(I)
+print("Вариант №1:", RESULT)
+
+# ВАРИАНТ №2 - В одну строку получилось!!!
+print(
+    "Вариант №2:", [
+        I for I, _ in enumerate(ARRAY) if int(
+            ARRAY[I]) %
+        2 == 0])

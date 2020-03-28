@@ -36,3 +36,19 @@
 [3, 3, 3, 3, 12]
 [3, 3, 3, 3, 12]
 """
+#from random import randint
+
+COUNT_X = 4
+COUNT_Y = 5
+ARRAY = []                                                    # Список списков
+RESULT = ""  # Строка вывода
+for I in range(COUNT_Y):
+    ARRAY.append([])
+    print(f"{I+1}-я строка:")
+    #ARRAY[I] = [randint(0, 100) for J in range(COUNT_X)]
+    ARRAY[I] = [int(input("")) for J in range(COUNT_X)]
+    ARRAY[I].append(sum(ARRAY[I]))
+    RESULT += u"\n" + str(ARRAY[I])
+
+
+print(RESULT)

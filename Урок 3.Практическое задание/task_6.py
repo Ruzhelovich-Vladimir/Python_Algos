@@ -13,3 +13,28 @@
 Массив: [88, 58, 50, 77, 49, 6, 42, 67, 14, 79]
 Сумма элементов между минимальным (6)  и максимальным (88) элементами: 234
 """
+
+# Наполнение массива
+from random import randint
+LEN_ARRAY = int(input("Введите количество элементов в массиве: "))
+MIN = -100
+MAX = 100
+ARRAY = [randint(MIN, MAX) for cont in range(LEN_ARRAY)]
+#ARRAY = [88, 58, 50, 77, 49, 6, 42, 67, 14, 79]
+#ARRAY = [88,80,79]
+############################################################
+# Генерируем двумерный список из элементов и его индекса
+# Ищем максимумальный и минимальное значение, сохраняяих индекс
+MAX_INX = max([[INX, ELEM] for INX, ELEM in enumerate(ARRAY)],
+              key=lambda x: x[1])[0]
+MIN_INX = min([[INX, ELEM] for INX, ELEM in enumerate(ARRAY)],
+              key=lambda x: x[1])[0]
+# Стартовый индекс для суммирования
+SUM_START_INX = min(MAX_INX, MIN_INX) + 1
+# Финишный индекс для суммирования
+SUM_FINISH_INX = max(MAX_INX, MIN_INX)
+# СУММА ЭЛЕМЕТОВ
+RESULT_SUM = sum([ARRAY[INX] for INX in range(SUM_START_INX, SUM_FINISH_INX)])
+print(f"""Массив: {ARRAY}
+Сумма элементов между минимальным ({ARRAY[MIN_INX]})  и максимальным ({ARRAY[MAX_INX]}) элементами: \
+{RESULT_SUM}""")
