@@ -25,3 +25,76 @@
 
 Предприятия, с прибылью ниже среднего значения: Копыта
 """
+
+from collections import namedtuple
+
+
+def task1_version1():
+    """
+    Решение задачи чере тип namedtuple
+    :return:
+    """
+
+    company_count = int(
+        input("Введите количество предприятий для расчета прибыли: "))
+    companies_type = namedtuple("companies", ['company_list', 'average'])
+    company_profit = namedtuple(
+        'company', [
+            "name", "quarterly_profit", "average"])
+
+    companies_tmp = []
+    count = 0
+    profit_sum = 0
+
+    for _ in range(company_count):
+
+        company_name = input('Введите название предприятия: ')
+        user_quarterly_profit = input(
+            """через пробел введите прибыль данного предприятия
+            за каждый квартал(Всего 4 квартала): """).split(" ")
+        float_quarterly_profit = [float(elem)
+                                  for elem in user_quarterly_profit]
+        count += len(float_quarterly_profit)
+        profit_sum += sum(float_quarterly_profit)
+
+        companies_tmp.append(
+            company_profit(
+                name=company_name,
+                quarterly_profit=float_quarterly_profit,
+                average=sum(float_quarterly_profit) /
+                len(float_quarterly_profit)))
+
+    average_all = profit_sum / count
+    companies = companies_type(company_list=companies_tmp, average=average_all)
+
+    above_average = []
+    below_average = []
+    for company in companies.company_list:
+        if company.average >= average_all:
+            above_average.append(company.name)
+        else:
+            below_average.append(company.name)
+
+    print(f"""Средняя квартальная прибыль всех предприятий: {companies.average}
+Предприятия, с прибылью выше среднего значения: {", ".join(above_average)}
+Предприятия, с прибылью ниже среднего значения: {", ".join(below_average)}""")
+
+
+task1_version1()
+
+"""
+Введите количество предприятий для расчета прибыли: 3
+Введите название предприятия: Рога
+через пробел введите прибыль данного предприятия
+            за каждый квартал(Всего 4 квартала): 12 12 12 12
+Введите название предприятия: Копыта
+через пробел введите прибыль данного предприятия
+            за каждый квартал(Всего 4 квартала): 11 11 11 11
+Введите название предприятия: Пупкин ИП
+через пробел введите прибыль данного предприятия
+            за каждый квартал(Всего 4 квартала): 100 100 100 100
+Средняя квартальная прибыль всех предприятий: 41.0
+Предприятия, с прибылью выше среднего значения: Пупкин ИП
+
+Предприятия, с прибылью ниже среднего значения: Рога, Копыта
+"""
