@@ -8,3 +8,76 @@
 Исходный - [46.11436617832828, 41.62921998361278, 18.45859540989644, 12.128870723745806, 8.025098788570562]
 Отсортированный - [8.025098788570562, 12.128870723745806, 18.45859540989644, 41.62921998361278, 46.11436617832828]
 """
+
+
+from random import random as rand
+from timeit import timeit
+
+def sort_list(list_param):
+    """
+    Сортировка списка метод "слияния"
+    :param list_param: список чисел
+    :return: отсортированный список
+    """
+
+    if len(list_param) > 1:
+        center = len(list_param) // 2
+        left = list_param[:center]      # Левая часть списка
+        right = list_param[center:]     # Правая часть списка
+
+        sort_list(left)                 # Сортировка левой части
+        sort_list(right)                # Сортировка правого списка
+
+        inx_left, inx_right, inx_list = 0, 0, 0
+
+        # Вставляем минимальные элемент первым в исходный список из правой и
+        # левой части
+        while inx_left < len(left) and inx_right < len(right):
+            if left[inx_left] < right[inx_right]:
+                list_param[inx_list] = left[inx_left]
+                inx_left += 1
+            else:
+                list_param[inx_list] = right[inx_right]
+                inx_right += 1
+            inx_list += 1
+
+        # Переносим данные из левой части списка в основной список
+        while inx_left < len(left):
+            list_param[inx_list] = left[inx_left]
+            inx_left += 1
+            inx_list += 1
+
+        # Переносим данные из правой части списка в основной список
+        while inx_right < len(right):
+            list_param[inx_list] = right[inx_right]
+            inx_right += 1
+            inx_list += 1
+
+    return list_param
+
+
+LEN = int(input("Введите число элементов: "))
+ARRAY = [rand() * 49 for _ in range(LEN)]
+# ARRAY = [
+#    46.11436617832828,
+#    41.62921998361278,
+#    18.45859540989644,
+#    12.128870723745806,
+#    8.025098788570562]
+
+# Вывод на экран
+print(
+    f"""Исходный - {ARRAY}\nОтсортированный - {sort_list(ARRAY)}""")
+print(
+    "Замер:",
+    timeit(
+        "sort_list(ARRAY)",
+        setup="from __main__ import sort_list, ARRAY",
+        number=1000))
+
+"""
+Введите число элементов: 10
+Исходный - [6.7811667609322415, 36.08271922808407, 21.90752342063981, 35.93137149101498, 27.378241249590932, 0.45405774295440693, 34.934018331845735, 18.045939086368744, 0.7089579143032434, 22.489016647738243]
+Отсортированный - [0.45405774295440693, 0.7089579143032434, 6.7811667609322415, 18.045939086368744, 21.90752342063981, 22.489016647738243, 27.378241249590932, 34.934018331845735, 35.93137149101498, 36.08271922808407]
+Замер: 0.045070100000000224
+"""
